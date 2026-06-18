@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposition · Le Jeune Entreprise · Intuitio Studio</title>
+<meta name="description" content="Proposition commerciale — Séance photo de valorisation d'activité pour Le Jeune Entreprise, Talence — Intuitio Studio, juin 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-dark:#1a0229;
+    --bg-card:#27083c;
+    --accent:#fabb67;
+    --text-light:#f1efed;
+    --text-dark:#1a0229;
+    --line:#fabb67;
+    --max:1080px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Plus Jakarta Sans', sans-serif;
+    background:var(--bg-dark);
+    color:var(--text-light);
+    letter-spacing:0.045em;
+    font-size:1rem;
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  img{max-width:100%;display:block;}
+
+  .container{
+    width:100%;
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 1.5rem;
+  }
+
+  .label{
+    font-size:0.75rem;
+    font-weight:700;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:block;
+  }
+
+  .label--dark{color:var(--text-dark);}
+
+  h1,h2,h3{
+    font-family:'Plus Jakarta Sans', sans-serif;
+    font-weight:800;
+    letter-spacing:0.06em;
+    line-height:1.15;
+  }
+
+  h2{
+    font-size:clamp(1.8rem, 3.2vw, 2.6rem);
+    letter-spacing:0.04em;
+    margin-top:0.6rem;
+  }
+
+  h3{
+    font-size:1.15rem;
+    letter-spacing:0.04em;
+  }
+
+  p{font-size:1rem;}
+
+  section{padding:clamp(4rem,8vw,7rem) 0;}
+
+  .divider{
+    width:48px;height:2px;background:var(--accent);
+    margin:1.5rem 0;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:0.6rem;
+    padding:0.95rem 2rem;
+    border-radius:999px;
+    font-size:0.85rem;
+    font-weight:700;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    border:2px solid var(--accent);
+    cursor:pointer;
+    transition:transform .25s ease, background .25s ease, color .25s ease;
+    background:transparent;
+    color:var(--text-light);
+  }
+
+  .btn--solid{
+    background:var(--accent);
+    color:var(--text-dark);
+  }
+
+  .btn:hover{transform:translateY(-2px);}
+  .btn--solid:hover{background:var(--text-light);border-color:var(--text-light);}
+  .btn:not(.btn--solid):hover{background:var(--accent);color:var(--text-dark);}
+
+  /* ===== ACCESS SCREEN ===== */
+  #access{
+    position:fixed;inset:0;
+    background:var(--bg-dark);
+    z-index:999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:1.5rem;
+    transition:opacity .5s ease, visibility .5s ease;
+  }
+  #access.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+
+  .access-box{
+    max-width:420px;
+    width:100%;
+    text-align:center;
+  }
+
+  .access-mark{
+    font-size:0.95rem;
+    font-weight:800;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--text-light);
+    margin-bottom:0.6rem;
+  }
+
+  .access-sub{
+    font-size:0.75rem;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:2.5rem;
+  }
+
+  .access-label{
+    font-size:0.75rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--text-light);
+    display:block;
+    margin-bottom:0.9rem;
+  }
+
+  #access input{
+    width:100%;
+    background:transparent;
+    border:none;
+    border-bottom:2px solid var(--accent);
+    color:var(--text-light);
+    font-family:'Plus Jakarta Sans', sans-serif;
+    font-size:1.1rem;
+    letter-spacing:0.15em;
+    text-align:center;
+    padding:0.8rem 0.5rem;
+    outline:none;
+  }
+
+  #access input::placeholder{color:#8a7f96;}
+
+  .access-error{
+    font-size:0.8rem;
+    color:var(--accent);
+    margin-top:1rem;
+    height:1.2rem;
+    letter-spacing:0.08em;
+    opacity:0;
+    transition:opacity .2s ease;
+  }
+  .access-error.show{opacity:1;}
+
+  #access .btn{margin-top:2.2rem;width:100%;justify-content:center;}
+
+  /* ===== MAIN CONTENT ===== */
+  #main{
+    transition:opacity .6s ease;
+  }
+  #main.locked{opacity:0;}
+
+  /* ===== HERO ===== */
+  .hero{
+    min-height:92vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding-top:6rem;
+    padding-bottom:4rem;
+    border-bottom:1px solid #3a1450;
+  }
+
+  .hero-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:1rem;
+    margin-bottom:3rem;
+  }
+
+  .hero-brand{
+    font-size:0.95rem;
+    font-weight:800;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+  }
+
+  .hero-date{
+    font-size:0.75rem;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+
+  .hero-title{
+    font-size:clamp(2.6rem, 8vw, 5.2rem);
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .hero-title span{color:var(--accent);}
+
+  .hero-client{
+    margin-top:2rem;
+    font-size:clamp(1.1rem,2.2vw,1.4rem);
+    font-weight:600;
+    letter-spacing:0.06em;
+  }
+
+  .hero-meta{
+    margin-top:0.8rem;
+    font-size:0.95rem;
+    color:#cdb9da;
+    letter-spacing:0.04em;
+  }
+
+  .hero-issued{
+    margin-top:2.5rem;
+    font-size:0.75rem;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:#8a7f96;
+  }
+
+  /* ===== GENERIC SECTION HEAD ===== */
+  .sec-head{margin-bottom:3rem;}
+
+  /* ===== CONTEXTE ===== */
+  .contexte-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:3rem;
+  }
+  .contexte-text p{color:#dccfe4;margin-bottom:1.2rem;}
+
+  .needs-list{list-style:none;display:flex;flex-direction:column;gap:1rem;}
+  .needs-list li{
+    display:flex;gap:0.9rem;
+    font-size:1rem;
+    color:var(--text-light);
+    border-top:1px solid #3a1450;
+    padding-top:1rem;
+  }
+  .needs-list li:first-child{border-top:none;padding-top:0;}
+  .needs-list li::before{
+    content:"";
+    width:6px;height:6px;border-radius:50%;
+    background:var(--accent);
+    margin-top:0.55rem;
+    flex-shrink:0;
+  }
+  .needs-list strong{color:var(--accent);font-weight:700;}
+
+  @media (max-width:768px){
+    .contexte-grid{grid-template-columns:1fr;gap:2rem;}
+  }
+
+  /* ===== POURQUOI ===== */
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1.5rem;
+  }
+  .why-card{
+    background:var(--bg-card);
+    border:1px solid #3a1450;
+    border-radius:14px;
+    padding:2rem;
+  }
+  .why-num{
+    font-size:0.85rem;
+    font-weight:800;
+    color:var(--accent);
+    letter-spacing:0.2em;
+    margin-bottom:1rem;
+    display:block;
+  }
+  .why-card p{color:#cdb9da;margin-top:0.8rem;font-size:0.95rem;}
+
+  @media (max-width:768px){
+    .why-grid{grid-template-columns:1fr;}
+  }
+
+  /* ===== OFFRE ===== */
+  .offer-card{
+    background:var(--bg-card);
+    border:2px solid var(--accent);
+    border-radius:20px;
+    padding:clamp(2rem,4vw,3.5rem);
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:3rem;
+  }
+  .offer-card h3{font-size:1.5rem;margin-bottom:1rem;}
+  .offer-card > div:first-child p{color:#dccfe4;margin-bottom:1.5rem;}
+
+  .offer-list{list-style:none;display:flex;flex-direction:column;gap:0.85rem;}
+  .offer-list li{
+    display:flex;gap:0.7rem;
+    font-size:0.95rem;
+    color:var(--text-light);
+  }
+  .offer-list li::before{
+    content:"";
+    width:6px;height:6px;border-radius:50%;
+    background:var(--accent);
+    margin-top:0.5rem;
+    flex-shrink:0;
+  }
+
+  .offer-price-box{
+    border-left:1px solid #3a1450;
+    padding-left:2.5rem;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:flex-start;
+  }
+  .offer-price-tag{
+    font-size:0.75rem;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:0.6rem;
+  }
+  .offer-price{
+    font-size:clamp(2.4rem,4vw,3.2rem);
+    font-weight:800;
+    letter-spacing:0.02em;
+  }
+  .offer-price-note{
+    font-size:0.8rem;
+    color:#cdb9da;
+    margin-top:0.6rem;
+    letter-spacing:0.03em;
+  }
+  .offer-extra{
+    margin-top:1.8rem;
+    padding-top:1.5rem;
+    border-top:1px solid #3a1450;
+    font-size:0.85rem;
+    color:#cdb9da;
+  }
+
+  @media (max-width:768px){
+    .offer-card{grid-template-columns:1fr;}
+    .offer-price-box{border-left:none;border-top:1px solid #3a1450;padding-left:0;padding-top:2rem;}
+  }
+
+  /* ===== PLANNING ===== */
+  .planning-card{
+    background:var(--bg-card);
+    border:1px solid #3a1450;
+    border-radius:18px;
+    padding:clamp(2rem,4vw,3rem);
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:2.5rem;
+    align-items:start;
+  }
+  .planning-num{
+    font-size:3.2rem;
+    font-weight:800;
+    color:var(--accent);
+    line-height:1;
+  }
+  .planning-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:2rem;
+    margin:1.2rem 0 1.5rem;
+  }
+  .planning-meta div{display:flex;flex-direction:column;gap:0.3rem;}
+  .planning-meta .label{font-size:0.7rem;}
+  .planning-meta strong{font-size:1rem;font-weight:700;}
+
+  .planning-list{list-style:none;display:flex;flex-direction:column;gap:0.7rem;}
+  .planning-list li{
+    display:flex;gap:0.7rem;
+    font-size:0.95rem;
+    color:#dccfe4;
+  }
+  .planning-list li::before{
+    content:"";
+    width:6px;height:6px;border-radius:50%;
+    background:var(--accent);
+    margin-top:0.5rem;
+    flex-shrink:0;
+  }
+
+  @media (max-width:600px){
+    .planning-card{grid-template-columns:1fr;}
+  }
+
+  /* ===== STATS BANNER ===== */
+  .stats{
+    background:var(--accent);
+    color:var(--text-dark);
+    padding:clamp(3rem,6vw,4.5rem) 0;
+  }
+  .stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:2rem;
+    text-align:center;
+  }
+  .stat-num{
+    font-size:clamp(2.4rem,5vw,3.6rem);
+    font-weight:800;
+    letter-spacing:0.02em;
+  }
+  .stat-label{
+    font-size:0.75rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    font-weight:700;
+    margin-top:0.5rem;
+  }
+
+  @media (max-width:768px){
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+  }
+
+  /* ===== DIRECTION ARTISTIQUE ===== */
+  .da-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:3rem;
+  }
+  .da-grid p{color:#dccfe4;margin-bottom:1.2rem;}
+  .da-points{list-style:none;display:flex;flex-direction:column;gap:1rem;}
+  .da-points li{
+    background:var(--bg-card);
+    border:1px solid #3a1450;
+    border-radius:12px;
+    padding:1.1rem 1.4rem;
+    font-size:0.95rem;
+  }
+  .da-points strong{color:var(--accent);}
+
+  @media (max-width:768px){
+    .da-grid{grid-template-columns:1fr;gap:2rem;}
+  }
+
+  /* ===== WORKFLOW ===== */
+  .workflow{
+    display:flex;
+    flex-direction:column;
+  }
+  .wf-step{
+    display:grid;
+    grid-template-columns:90px 1fr;
+    gap:2rem;
+    padding:2rem 0;
+    border-top:1px solid #3a1450;
+  }
+  .wf-step:first-child{border-top:none;}
+  .wf-num{
+    font-size:2rem;
+    font-weight:800;
+    color:var(--accent);
+  }
+  .wf-step h3{margin-bottom:0.5rem;}
+  .wf-step p{color:#cdb9da;font-size:0.95rem;}
+
+  @media (max-width:600px){
+    .wf-step{grid-template-columns:1fr;gap:0.6rem;}
+  }
+
+  /* ===== CTA FINAL ===== */
+  .cta{
+    text-align:center;
+    background:var(--bg-card);
+    border-radius:24px;
+    padding:clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,4rem);
+    border:1px solid #3a1450;
+  }
+  .cta h2{margin-bottom:1rem;}
+  .cta p{
+    max-width:600px;
+    margin:0 auto 2.5rem;
+    color:#dccfe4;
+  }
+  .cta-buttons{
+    display:flex;
+    justify-content:center;
+    gap:1rem;
+    flex-wrap:wrap;
+  }
+  .cta-contact{
+    margin-top:2.5rem;
+    font-size:0.85rem;
+    color:#8a7f96;
+    letter-spacing:0.05em;
+  }
+
+  /* ===== FOOTER ===== */
+  footer{
+    border-top:1px solid #3a1450;
+    padding:3rem 0;
+  }
+  .footer-grid{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:1.5rem;
+  }
+  .footer-brand{
+    font-size:0.85rem;
+    font-weight:800;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+  }
+  .footer-sub{
+    font-size:0.85rem;
+    color:#8a7f96;
+    margin-top:0.4rem;
+  }
+  .footer-links{
+    display:flex;
+    flex-direction:column;
+    gap:0.5rem;
+    align-items:flex-end;
+    font-size:0.85rem;
+    color:#cdb9da;
+  }
+  .footer-note{
+    margin-top:2.5rem;
+    text-align:center;
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    color:#5e5168;
+  }
+
+  @media (max-width:600px){
+    .footer-links{align-items:flex-start;}
+    .footer-grid{flex-direction:column;}
+  }
+
+  /* ===== SCROLL REVEAL ===== */
+  [data-animate]{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  [data-animate].in-view{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-animate]{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== ACCESS SCREEN ===== -->
+<div id="access">
+  <div class="access-box">
+    <div class="access-mark">Intuitio Studio</div>
+    <div class="access-sub">Document confidentiel</div>
+    <span class="access-label">Saisissez le code d'accès</span>
+    <input type="text" id="access-input" placeholder="Code d'accès" autocomplete="off">
+    <div class="access-error" id="access-error">Code incorrect</div>
+    <button class="btn btn--solid" id="access-submit">Accéder au document</button>
+  </div>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div id="main" class="locked">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-top">
+        <div class="hero-brand">Intuitio Studio</div>
+        <div class="hero-date">Juin 2026</div>
+      </div>
+      <h1 class="hero-title">Proposition<br><span>Commerciale</span></h1>
+      <div class="hero-client">Le Jeune Entreprise · Damien Le Jeune, Dirigeant</div>
+      <div class="hero-meta">Séance photo de valorisation d'activité · 177 bis rue de Leysotte, Talence</div>
+      <div class="hero-issued">17 juin 2026</div>
+    </div>
+  </section>
+
+  <!-- CONTEXTE -->
+  <section>
+    <div class="container">
+      <div class="sec-head" data-animate>
+        <span class="label">Contexte</span>
+        <div class="divider"></div>
+        <h2>Des images qui suivent votre croissance</h2>
+      </div>
+      <div class="contexte-grid">
+        <div class="contexte-text" data-animate>
+          <p>Votre équipe s'est agrandie, et votre offre aussi. Cette séance vise à constituer une banque d'images qui reflète votre structure actuelle, avec une attention particulière portée à vos services clés, et notamment à votre nouveau service de détection de fuites.</p>
+          <p>Au-delà du portrait d'équipe, l'enjeu est de montrer vos savoir-faire en situation : des images qui donnent à voir ce que vous faites concrètement, pas seulement qui vous êtes.</p>
+        </div>
+        <ul class="needs-list" data-animate>
+          <li><span>Une <strong>banque d'images à jour</strong>, qui reflète votre équipe agrandie</span></li>
+          <li><span>Une mise en avant de vos <strong>services clés</strong>, et en particulier de votre nouveau service de <strong>détection de fuites</strong></span></li>
+          <li><span>Un pack de <strong>15 photographies retouchées sur-mesure</strong>, livrées en formats digital et print</span></li>
+          <li><span>Une direction artistique préparée en amont, en collaboration avec <strong>Studio Bel Camille et Appalga</strong></span></li>
+          <li><span>Un ou plusieurs <strong>lieux de prise de vue</strong> à définir ensemble, pour représenter fidèlement votre activité sur le terrain</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- POURQUOI INTUITIO -->
+  <section>
+    <div class="container">
+      <div class="sec-head" data-animate>
+        <span class="label">Pourquoi Intuitio Studio</span>
+        <div class="divider"></div>
+        <h2>Le partenaire de cette mission</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card" data-animate>
+          <span class="why-num">01</span>
+          <h3>Direction artistique intégrée</h3>
+          <p>Chaque séance est préparée en amont avec un moodboard validé. Le cadrage, la lumière et la mise en scène répondent à une intention éditoriale — pas à un protocole standard.</p>
+        </div>
+        <div class="why-card" data-animate>
+          <span class="why-num">02</span>
+          <h3>Un œil pour le geste professionnel</h3>
+          <p>Intuitio Studio accompagne des entreprises et des équipes en croissance — l'enjeu ici est de traduire en images votre savoir-faire technique, sur le terrain comme en équipe.</p>
+        </div>
+        <div class="why-card" data-animate>
+          <span class="why-num">03</span>
+          <h3>Livraison clé en main</h3>
+          <p>Tri, sélection, retouches sur-mesure, livraison HD et web. Vous êtes accompagné jusqu'à l'utilisation finale des images sur vos supports.</p>
+        </div>
+        <div class="why-card" data-animate>
+          <span class="why-num">04</span>
+          <h3>Un actif durable</h3>
+          <p>Les images produites alimentent votre communication sur plusieurs mois, voire plusieurs années. Un investissement ponctuel, un usage continu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFRE -->
+  <section>
+    <div class="container">
+      <div class="sec-head" data-animate>
+        <span class="label">Les offres</span>
+        <div class="divider"></div>
+        <h2>Ce que nous vous proposons</h2>
+      </div>
+      <div class="offer-card" data-animate>
+        <div>
+          <span class="label">Forfait photo</span>
+          <h3>Séance photo de valorisation</h3>
+          <p>Une séance de prise de vue de 3h, sur un lieu défini ensemble, pour constituer un pack de 15 photographies retouchées sur-mesure dédiées à la valorisation de votre activité.</p>
+          <ul class="offer-list">
+            <li>Travail préparatoire : moodboard collaboratif avec Studio Bel Camille et Appalga, direction artistique de la séance</li>
+            <li>Séance de prise de vue de 3h, sur un lieu à définir ensemble</li>
+            <li>Pré-retouche, puis mise à disposition des images pour sélection en collaboration avec votre entreprise, Studio Bel Camille et Appalga</li>
+            <li>Retouche sur-mesure : harmonisation des lumières, de la colorimétrie et des perspectives</li>
+            <li>Livraison sur Google Drive sécurisé, RDV de présentation et deuxième vague de retouches incluse si nécessaire</li>
+            <li>Deux formats par photo : JPEG basse résolution (digital) et TIFF haute résolution (print)</li>
+            <li>Cession de droits : licence non-exclusive et illimitée d'exploitation sur vos supports papier et digitaux</li>
+          </ul>
+        </div>
+        <div class="offer-price-box">
+          <span class="offer-price-tag">Forfait</span>
+          <div class="offer-price">750 €</div>
+          <div class="offer-price-note">TTC · TVA non applicable, art. 293 B du CGI<br>15 photos retouchées sur-mesure</div>
+          <div class="offer-extra">Acompte de 50 % à la confirmation · solde à réception des photos. Photo supplémentaire : 35 € l'unité.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANNING -->
+  <section>
+    <div class="container">
+      <div class="sec-head" data-animate>
+        <span class="label">Planning</span>
+        <div class="divider"></div>
+        <h2>La séance, en un coup d'œil</h2>
+      </div>
+      <div class="planning-card" data-animate>
+        <span class="planning-num">01</span>
+        <div>
+          <h3>Séance photo de valorisation</h3>
+          <div class="planning-meta">
+            <div><span class="label">Période</span><strong>Début d'été 2026</strong></div>
+            <div><span class="label">Durée</span><strong>3 heures</strong></div>
+            <div><span class="label">Lieu(x)</span><strong>À confirmer — 1 ou 2 lieux</strong></div>
+            <div><span class="label">Livrable</span><strong>15 photos</strong></div>
+          </div>
+          <ul class="planning-list">
+            <li>Validation du moodboard et de la direction artistique avant la séance</li>
+            <li>Arbitrage du lieu : vos locaux seuls, ou vos locaux + une intervention chez un client pour mettre en situation le service de détection de fuites</li>
+            <li>Prise de vue en lumière naturelle privilégiée, sur le ou les lieux retenus</li>
+            <li>Sélection des images réalisée ensemble après la séance</li>
+            <li>RDV de présentation des photos livrées, avec une deuxième vague de retouches incluse si besoin</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BANNER -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div data-animate>
+          <div class="stat-num">15</div>
+          <div class="stat-label">Photos retouchées</div>
+        </div>
+        <div data-animate>
+          <div class="stat-num">3h</div>
+          <div class="stat-label">Séance de prise de vue</div>
+        </div>
+        <div data-animate>
+          <div class="stat-num">2</div>
+          <div class="stat-label">Formats de livraison</div>
+        </div>
+        <div data-animate>
+          <div class="stat-num">50%</div>
+          <div class="stat-label">Acompte à la confirmation</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIRECTION ARTISTIQUE -->
+  <section>
+    <div class="container">
+      <div class="sec-head" data-animate>
+        <span class="label">Direction artistique</span>
+        <div class="divider"></div>
+        <h2>Une direction pensée pour votre image</h2>
+      </div>
+      <div class="da-grid">
+        <div data-animate>
+          <p>Le choix du ou des lieux reste à arbitrer ensemble : vos locaux seuls pour les portraits d'équipe, ou vos locaux complétés par une intervention chez un client pour montrer le service de détection de fuites en action. Cette seconde option donne une preuve concrète de votre savoir-faire, là où les portraits seuls montrent surtout qui vous êtes.</p>
+          <p>En attendant cet arbitrage, le travail de moodboard, mené en collaboration avec Studio Bel Camille et Appalga, pose déjà les intentions : des images qui montrent votre sérieux et votre expertise technique, sans formalisme froid ni mise en scène artificielle. La lumière naturelle sera privilégiée chaque fois que le lieu le permet.</p>
+        </div>
+        <ul class="da-points" data-animate>
+          <li><strong>Moodboard</strong> — validé en amont avec Studio Bel Camille et Appalga, pour cadrer l'intention de chaque prise de vue</li>
+          <li><strong>Lieu(x)</strong> — vos locaux, et potentiellement une intervention chez un client pour le service de détection de fuites</li>
+          <li><strong>Service phare</strong> — une partie de la séance dédiée à la mise en situation de la détection de fuites</li>
+          <li><strong>Lumière</strong> — naturelle en priorité, complétée si besoin pour une ambiance chaleureuse</li>
+          <li><strong>Cohérence</strong> — un rendu harmonisé sur les 15 photos, pensé pour s'intégrer sur tous vos supports</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKFLOW -->
+  <section>
+    <div class="container">
+      <div class="sec-head" data-animate>
+        <span class="label">De la prise de vue à la livraison</span>
+        <div class="divider"></div>
+        <h2>Comment nous travaillons ensemble</h2>
+      </div>
+      <div class="workflow">
+        <div class="wf-step" data-animate>
+          <span class="wf-num">1</span>
+          <div>
+            <h3>Pré-production</h3>
+            <p>Moodboard collaboratif avec Studio Bel Camille et Appalga, direction artistique de la séance, confirmation du lieu et de la date.</p>
+          </div>
+        </div>
+        <div class="wf-step" data-animate>
+          <span class="wf-num">2</span>
+          <div>
+            <h3>Prise de vue</h3>
+            <p>Séance de 3h sur le lieu choisi ensemble, direction artistique en temps réel.</p>
+          </div>
+        </div>
+        <div class="wf-step" data-animate>
+          <span class="wf-num">3</span>
+          <div>
+            <h3>Tri et sélection</h3>
+            <p>Pré-retouche des photos, mise à disposition pour votre sélection en collaboration avec Studio Bel Camille et Appalga.</p>
+          </div>
+        </div>
+        <div class="wf-step" data-animate>
+          <span class="wf-num">4</span>
+          <div>
+            <h3>Retouches finales</h3>
+            <p>Harmonisation des lumières, de la colorimétrie et des perspectives sur les images sélectionnées.</p>
+          </div>
+        </div>
+        <div class="wf-step" data-animate>
+          <span class="wf-num">5</span>
+          <div>
+            <h3>Livraison</h3>
+            <p>Export sur Google Drive sécurisé, formats JPEG (digital) et TIFF (print), RDV de présentation pour valider l'ensemble.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section>
+    <div class="container">
+      <div class="cta" data-animate>
+        <span class="label">Prochaine étape</span>
+        <h2>Fixons la date de votre séance</h2>
+        <p>Le devis détaillé est disponible en téléchargement ci-dessous. Réservons un créneau pour faire le point, répondre à vos questions et confirmer ensemble la date de la séance photo.</p>
+        <div class="cta-buttons">
+          <a class="btn" href="https://drive.google.com/file/d/1NLSyeGmj-nn9bZpG44mMs6yfRGnKsrSR/view?usp=drive_link" target="_blank" rel="noopener">Télécharger le devis</a>
+          <a class="btn btn--solid" href="https://cal.com/intuitio-studio/rdv-onboarding-prestation" target="_blank" rel="noopener">Fixer le rendez-vous</a>
+        </div>
+        <div class="cta-contact"><a href="https://intuitio-studio.myportfolio.com/direction-artistique-audiovisuelle-bordeaux" target="_blank" rel="noopener">Voir le portfolio</a> · virginie@intuitio-studio.fr · +33 7 67 94 49 32</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">Intuitio Studio</div>
+          <div class="footer-sub">Virginie Viel · Bordeaux</div>
+        </div>
+        <div class="footer-links">
+          <a href="mailto:virginie@intuitio-studio.fr">virginie@intuitio-studio.fr</a>
+          <a href="tel:+33767944932">07 67 94 49 32</a>
+          <a href="https://www.intuitio-studio.fr" target="_blank" rel="noopener">www.intuitio-studio.fr</a>
+          <a href="https://intuitio-studio.myportfolio.com/direction-artistique-audiovisuelle-bordeaux" target="_blank" rel="noopener">Portfolio</a>
+        </div>
+      </div>
+      <div class="footer-note">Proposition confidentielle · Intuitio Studio · Juin 2026 · Le devis détaillé est disponible en téléchargement</div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // ----- Access code gate -----
+  const ACCESS_CODE = "LejeuneEntreprise2026";
+  const accessScreen = document.getElementById('access');
+  const accessInput = document.getElementById('access-input');
+  const accessSubmit = document.getElementById('access-submit');
+  const accessError = document.getElementById('access-error');
+  const main = document.getElementById('main');
+
+  function tryUnlock(){
+    if(accessInput.value.trim() === ACCESS_CODE){
+      accessScreen.classList.add('hidden');
+      main.classList.remove('locked');
+      sessionStorage.setItem('intuitio_unlocked', '1');
+    } else {
+      accessError.classList.add('show');
+      accessInput.style.borderColor = '#e08b8b';
+      setTimeout(()=>{ accessInput.style.borderColor = 'var(--accent)'; }, 600);
+    }
+  }
+
+  accessSubmit.addEventListener('click', tryUnlock);
+  accessInput.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter') tryUnlock();
+    accessError.classList.remove('show');
+  });
+
+  if(sessionStorage.getItem('intuitio_unlocked') === '1'){
+    accessScreen.classList.add('hidden');
+    main.classList.remove('locked');
+  }
+
+  // ----- Scroll reveal -----
+  const animated = document.querySelectorAll('[data-animate]');
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15});
+  animated.forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>
